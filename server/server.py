@@ -78,25 +78,6 @@ class ServerGUI:
         # Add the filename to the received files list
         self.files_received.append(filename)
 
-    def download_file(self, filename):
-        # Get the full path of the file
-        filepath = os.path.join(FILES_DIR, filename)
-
-        # Open the file in binary read mode
-        with open(filepath, "rb") as f:
-            while True:
-                # Receive bytes from the client
-                bytes_read = self.client_socket.recv(BUFFER_SIZE)
-                if not bytes_read:
-                    # If no more bytes are received, break the loop
-                    break
-                # Write the received bytes to the file
-                f.write(bytes_read)
-        # Show success message
-        messagebox.showinfo("Success", f"File '{filename}' downloaded successfully.")
-        # Close the client socket
-        self.client_socket.close()
-
     def handle_client(self, client_socket):
         # Assign the client socket to an instance variable
         self.client_socket = client_socket
