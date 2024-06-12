@@ -256,6 +256,17 @@ def download_selected_file(filename):
         client_socket.close()
         connect_to_server(show_message=False)
 
+def list_files():
+    """Function to request the list of available files from the server"""
+    global client_socket
+    print("Requesting list of available files...")
+    # Send list files command to the server
+    client_socket.send("LIST_FILES".encode())
+    # Receive response from the server
+    response = client_socket.recv(BUFFER_SIZE).decode()
+    print("Received response from server:", response)
+
+
 def show_local_files():
     """List and display files in the downloaded files directory."""
     downloaded_files_dir = os.path.join(os.path.dirname(__file__), 'downloaded files')
